@@ -1,0 +1,68 @@
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+  font-size: 16px;
+  line-height: 1.5; 
+  color: #2D3748; 
+
+  background-color: #F1F0E0; 
+  min-height: 100vh; 
+  padding: 0;
+  margin: 0;
+}
+
+.site-header {
+  width: 100%;
+  padding: 30px 20px; 
+  text-align: center; 
+  background: linear-gradient(to right, #06D6A0, #FFD166); 
+  font-size: 20px;
+  color: #f7f4ed; 
+}
+
+.wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.main {
+  padding: 0px 10px;
+  overflow-x: hidden;
+  flex: 1;
+}
+
+.sidenav {
+  height: 100vh; 
+  width: 160px; 
+  position: sticky; 
+  z-index: 1;
+  top: 0;
+  background-color: #FF7F50; 
+  overflow-x: hidden; 
+  overflow-y: auto;
+  padding-top: 10px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px; /* top, right, bottom, left */
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.sidenav a:hover {
+  color: white;
+  background-color: rgb(251, 68, 2);
+}
+
+a.active {
+  background-color: rgb(251, 68, 2);
+  color: white;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
