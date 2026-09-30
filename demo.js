@@ -1,18 +1,21 @@
 // global variables
 var imageLoader;    // uploaded image file
+var photoLoader;    // captured photo (mobile only)
 var canvas;         // canvas for image
 var ctx;            // canvas context
 
 // wait for window to load before starting script
-window.onload = init
+window.onload = init;
 
 
 function init(){
     imageLoader = document.getElementById('imageLoader');
+    photoLoader = document.getElementById('photoLoader');
     canvas = document.getElementById('imageCanvas');
-    console.log(canvas)
+    console.log(canvas);
     ctx = canvas.getContext('2d'); 
     imageLoader.addEventListener('change', handleImage, false);
+    photoLoader.addEventListener('change', handleImage, false);
 }
 
 function handleImage(e){

@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script class="jsbin" src="demo.js"></script>
+    <script src="demo.js"></script>
     <title>Delaunay Triangulation Art</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="demo.js" defer></script> -->
-    <!-- <noscript>To use this site, please enable JavaScript.</noscript> -->
+    <noscript>To use this site, please enable JavaScript.</noscript>
 </head>
 
 <body>
@@ -17,7 +16,6 @@
         </header>
 
         <div class="wrapper">
-            <!-- Side navigation -->
             <div class="sidenav">
                 <a href="index.html">Home</a>
                 <a class="active" href="demo.html">Demo</a>
@@ -26,9 +24,19 @@
             <main class="main">
                 <h2>Demo coming soon!</h2>
 
-                <label for="file">Upload an image</label>
-                <input type="file" id="imageLoader" name="imageLoader" accept="image/*"/>
-                <canvas id="imageCanvas"></canvas>
+                <div class="row">
+                    <div class="column">
+                        <button class="fileButton" onclick="document.getElementById('imageLoader').click()">Upload image</button>
+                        <input style="display: none" type="file" id="imageLoader" name="imageLoader" accept="image/*"/>
+                    </div>
+                    <div class="column">
+                        <div class= "hide-on-desktop">
+                            <button class="fileButton" onclick="document.getElementById('photoLoader').click()">Take photo</button>
+                            <input style="display:none" type="file" id="photoLoader" name="photoLoader" accept="image/*" capture=camera tabindex="-1"/>
+                        </div>
+                    </div>
+                    <canvas id="imageCanvas"></canvas>
+                </div>
                 
             </main>
         </div>

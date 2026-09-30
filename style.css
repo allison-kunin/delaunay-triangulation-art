@@ -32,6 +32,17 @@ body {
   flex: 1;
 }
 
+.column {
+  float: left;
+  width: 50%;
+}
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .sidenav {
   height: 100vh; 
   width: 160px; 
@@ -63,7 +74,20 @@ a.active {
   color: white;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+@media screen and (max-width: 480px) {
+  .hide-on-mobile {
+    display: none;
+  }
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .hide-on-desktop {
+    display: none;
+  }
 }
