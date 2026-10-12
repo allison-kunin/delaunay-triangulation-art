@@ -23,20 +23,11 @@
 
             <main class="main">
                 <h2>Demo coming soon!</h2>
-
-                <div class="row">
-                    <div class="column">
-                        <button class="fileButton" onclick="document.getElementById('imageLoader').click()">Upload image</button>
-                        <input style="display: none" type="file" id="imageLoader" name="imageLoader" accept="image/*"/>
-                    </div>
-                    <div class="column">
-                        <div class= "hide-on-desktop">
-                            <button class="fileButton" onclick="document.getElementById('photoLoader').click()">Take photo</button>
-                            <input style="display:none" type="file" id="photoLoader" name="photoLoader" accept="image/*" capture=camera tabindex="-1"/>
-                        </div>
-                    </div>
-                    <canvas id="imageCanvas"></canvas>
+                <div>
+                    <button class="fileButton" onclick="document.getElementById('imageLoader').click()">Upload image</button>
+                    <input style="display: none" type="file" id="imageLoader" name="imageLoader" accept="image/*"/>
                 </div>
+                <canvas id="imageCanvas"></canvas>
                 
             </main>
         </div>

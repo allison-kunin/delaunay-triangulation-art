@@ -1,6 +1,5 @@
 // global variables
 var imageLoader;    // uploaded image file
-var photoLoader;    // captured photo (mobile only)
 var canvas;         // canvas for image
 var ctx;            // canvas context
 
@@ -10,7 +9,6 @@ window.onload = init;
 
 function init(){
     imageLoader = document.getElementById('imageLoader');
-    photoLoader = document.getElementById('photoLoader');
     canvas = document.getElementById('imageCanvas');
     console.log(canvas);
     ctx = canvas.getContext('2d'); 
