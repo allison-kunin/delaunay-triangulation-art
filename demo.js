@@ -57,6 +57,17 @@ function generateRandomPoints() {
 }
 
 function createDelaunayTriangulation() {
+    // add points around the canvas border to make the convex hull = the canvas border
+    for (let x = 0; x <= canvas.width; x += canvas.width / 10) {
+        points.push(new Point(x, 0));
+        points.push(new Point(x, canvas.height));
+    }
+    for (let y = 0; y <= canvas.height; y += canvas.height / 10) {
+        points.push(new Point(0, y));
+        points.push(new Point(canvas.width, y));
+    }
+
+    // create triangulation and draw it
     const triangles = triangulate(points);
     ctx.beginPath();
     triangles.forEach(function(triangle) {
