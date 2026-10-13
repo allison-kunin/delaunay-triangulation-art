@@ -43,6 +43,11 @@ body {
   clear: both;
 }
 
+.inlineButton {
+   display:inline-block;
+   margin-right:5px;
+}
+
 .sidenav {
   height: 100vh; 
   width: 160px; 

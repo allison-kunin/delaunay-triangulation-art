@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="delaunay.js"></script>
     <script src="demo.js"></script>
     <title>Delaunay Triangulation Art</title>
     <link rel="stylesheet" href="style.css">
@@ -28,6 +29,10 @@
                     <input style="display: none" type="file" id="imageLoader" name="imageLoader" accept="image/*"/>
                 </div>
                 <canvas id="imageCanvas"></canvas>
+                <div>
+                    <button class="inlineButton" id="generatePointsButton" onclick="generateRandomPoints()">Generate Points</button>
+                    <button class="inlineButton" id="triangulateButton" onclick="createDelaunayTriangulation()">Create Triangulation</button>
+                </div>
                 
             </main>
         </div>
