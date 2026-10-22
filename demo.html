@@ -23,12 +23,28 @@
             </div>
 
             <main class="main">
-                <h2>Demo coming soon!</h2>
                 <div>
                     <button class="fileButton" onclick="document.getElementById('imageLoader').click()">Upload image</button>
                     <input style="display: none" type="file" id="imageLoader" name="imageLoader" accept="image/*"/>
                 </div>
                 <canvas id="imageCanvas"></canvas>
+                <div class="rangeslider">
+                    <input type="range" min="10" max="1000" 
+                        value="500" class="myslider" 
+                        id="pointSlider" oninput="updateNumPointsValue(this.value)">
+                    <p><span id="numPointsValue"></span></p>
+                </div>
+                
+                <script>
+                    let pointSlider = document.getElementById("pointSlider");
+                    let numPointsValue = document.getElementById("numPointsValue");
+                    numPointsValue.innerHTML = pointSlider.value;
+
+                    pointSlider.oninput = function () {
+                        numPointsValue.innerHTML = this.value;
+                    }
+                </script>
+
                 <div>
                     <button class="inlineButton" id="generatePointsButton" onclick="generateRandomPoints()">Generate Points</button>
                     <button class="inlineButton" id="triangulateButton" onclick="createDelaunayTriangulation()">Create Triangulation</button>

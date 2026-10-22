@@ -4,6 +4,11 @@ var image;          // image object
 var canvas;         // canvas for image
 var ctx;            // canvas context
 
+
+// var numPoints = 500; // user-input number of points for triangulation
+// var numPointsValue = document.getElementById("numPointsValue");
+// numPointsValue.innerHTML = numPoints;
+
 // wait for window to load before starting script
 window.onload = init;
 
@@ -37,9 +42,11 @@ function generateRandomPoints() {
     if (image != null) {
         ctx.drawImage(image, 0, 0);
     }
+    // clear previous points
+    points = [];
 
-    // right now numPoints is a constant but eventually it will be a user input
-    const numPoints = 100;
+    // user input number of points
+    const numPoints = parseInt(document.getElementById("numPointsValue").innerHTML);
 
     const width = canvas.width;
     const height = canvas.height;
