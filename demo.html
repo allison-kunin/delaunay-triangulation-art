@@ -31,7 +31,7 @@
                 <div class="rangeslider">
                     <input type="range" min="10" max="1000" 
                         value="500" class="myslider" 
-                        id="pointSlider" oninput="updateNumPointsValue(this.value)">
+                        id="pointSlider">
                     <p><span id="numPointsValue"></span></p>
                 </div>
                 
@@ -48,6 +48,13 @@
                 <div>
                     <button class="inlineButton" id="generatePointsButton" onclick="generateRandomPoints()">Generate Points</button>
                     <button class="inlineButton" id="triangulateButton" onclick="createDelaunayTriangulation()">Create Triangulation</button>
+                    <button class="inlineButton" id="clearButton" onclick="clearCanvas()">Clear Canvas</button>
+
+                </div>
+
+                <div>
+                <input type="color" id="lineColor" name="lineColor" value="#000000" oninput="updateLineColor()" />
+                <label for="lineColor">Line Color</label>
                 </div>
                 
             </main>

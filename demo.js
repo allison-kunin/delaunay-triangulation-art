@@ -5,9 +5,7 @@ var canvas;         // canvas for image
 var ctx;            // canvas context
 
 
-// var numPoints = 500; // user-input number of points for triangulation
-// var numPointsValue = document.getElementById("numPointsValue");
-// numPointsValue.innerHTML = numPoints;
+var triangulationMade = false;
 
 // wait for window to load before starting script
 window.onload = init;
@@ -36,14 +34,26 @@ function handleImage(e){
 
 var points = []; // points in the triangulation
 
-function generateRandomPoints() {
-    // start by clearing the canvas (and redraw image)
+function clearCanvasAndRedrawImage() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (image != null) {
         ctx.drawImage(image, 0, 0);
     }
-    // clear previous points
+}
+
+function clearCanvas() {
+    // reset everything
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     points = [];
+    triangulationMade = false;
+}
+
+function generateRandomPoints() {
+    // start by clearing the canvas (and redraw image)
+    clearCanvasAndRedrawImage();
+    // reset
+    points = [];
+    triangulationMade = false;
 
     // user input number of points
     const numPoints = parseInt(document.getElementById("numPointsValue").innerHTML);
@@ -52,6 +62,7 @@ function generateRandomPoints() {
     const height = canvas.height;
 
     // randomly generate and draw points
+    ctx.fillStyle = document.getElementById("lineColor").value;
     ctx.beginPath();
     for (let i = 0; i < numPoints; i++) {
         const x = Math.floor(Math.random() * (width + 1));
@@ -76,6 +87,10 @@ function createDelaunayTriangulation() {
 
     // create triangulation and draw it
     const triangles = triangulate(points);
+    // clear canvas and redraw image to remove points before adding edges
+    clearCanvasAndRedrawImage();
+    ctx.strokeStyle = document.getElementById("lineColor").value;
+    ctx.fillStyle = document.getElementById("lineColor").value;
     ctx.beginPath();
     triangles.forEach(function(triangle) {
         ctx.moveTo(triangle.point1.x, triangle.point1.y);
@@ -84,5 +99,22 @@ function createDelaunayTriangulation() {
         ctx.stroke();
     });
     ctx.closePath();
+    triangulationMade = true;
+}
+
+function updateLineColor() {
+    if (triangulationMade) {
+        createDelaunayTriangulation();
+    } else {
+        // update points to be the correct color
+        clearCanvasAndRedrawImage();
+        ctx.fillStyle = document.getElementById("lineColor").value;
+        ctx.beginPath();
+        points.forEach(function(point) {
+            ctx.moveTo(point.x, point.y);
+            ctx.arc(point.x, point.y, 2, 0, 2 * Math.PI);
+            ctx.fill();
+        });
+    }
 }
 
