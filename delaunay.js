@@ -3,7 +3,7 @@ var Point = function(x, y) {
     this.x = x;
     this.y = y;
     this.equals = function(other) {
-        return this.x === other.x && this.y === other.y;
+        return this.x == other.x && this.y == other.y;
     }
 }
 
@@ -44,19 +44,22 @@ function inCircumcircle(point, circumcircle) {
 }
 
 function createSuperTriangle(points) {
-    console.log(points);
-    var minX = points[0].x;
-    var minY = points[0].y;
-    var maxX = points[0].x;
-    var maxY = points[0].y;
+    // var minX = points[0].x;
+    // var minY = points[0].y;
+    // var maxX = points[0].x;
+    // var maxY = points[0].y;
 
-    for (var i = 1; i < points.length; i++) {
-        minX = Math.min(minX, points[i].x);
-        minY = Math.min(minY, points[i].y);
-        maxX = Math.max(maxX, points[i].x);
-        maxY = Math.max(maxY, points[i].y);
-    }
-    
+    // for (var i = 1; i < points.length; i++) {
+    //     minX = Math.min(minX, points[i].x);
+    //     minY = Math.min(minY, points[i].y);
+    //     maxX = Math.max(maxX, points[i].x);
+    //     maxY = Math.max(maxY, points[i].y);
+    // }
+    minX = 0;
+    minY = 0;
+    maxX = canvas.width;
+    maxY = canvas.height;
+
     const dx = (maxX - minX) * 10;
     const dy = (maxY - minY) * 10;
     var superTriangle = new Triangle(

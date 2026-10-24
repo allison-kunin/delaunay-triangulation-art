@@ -6,6 +6,8 @@ var ctx;            // canvas context
 
 
 var triangulationMade = false;
+var points = new Set(); // points in the triangulation
+var triangles = []; // triangles in the triangulation
 
 // wait for window to load before starting script
 window.onload = init;
@@ -32,8 +34,6 @@ function handleImage(e){
     reader.readAsDataURL(e.target.files[0]);     
 }
 
-var points = []; // points in the triangulation
-
 function clearCanvasAndRedrawImage() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (image != null) {
@@ -44,7 +44,7 @@ function clearCanvasAndRedrawImage() {
 function clearCanvas() {
     // reset everything
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    points = [];
+    points = new Set();
     triangulationMade = false;
 }
 
@@ -52,7 +52,7 @@ function generateRandomPoints() {
     // start by clearing the canvas (and redraw image)
     clearCanvasAndRedrawImage();
     // reset
-    points = [];
+    points = new Set();
     triangulationMade = false;
 
     // user input number of points
@@ -67,7 +67,7 @@ function generateRandomPoints() {
     for (let i = 0; i < numPoints; i++) {
         const x = Math.floor(Math.random() * (width + 1));
         const y = Math.floor(Math.random() * (height + 1));
-        points.push(new Point(x, y));
+        points.add(new Point(x, y));
         ctx.moveTo(x, y);
         ctx.arc(x, y, 2, 0, 2 * Math.PI);
         ctx.fill();
@@ -77,34 +77,25 @@ function generateRandomPoints() {
 function createDelaunayTriangulation() {
     // add points around the canvas border to make the convex hull = the canvas border
     for (let x = 0; x <= canvas.width; x += canvas.width / 10) {
-        points.push(new Point(x, 0));
-        points.push(new Point(x, canvas.height));
+        points.add(new Point(Math.round(x), 0));
+        points.add(new Point(Math.round(x), canvas.height));
     }
     for (let y = 0; y <= canvas.height; y += canvas.height / 10) {
-        points.push(new Point(0, y));
-        points.push(new Point(canvas.width, y));
+        points.add(new Point(0, Math.round(y)));
+        points.add(new Point(canvas.width, Math.round(y)));
     }
 
+    console.log("points: ", points);
+
     // create triangulation and draw it
-    const triangles = triangulate(points);
-    // clear canvas and redraw image to remove points before adding edges
-    clearCanvasAndRedrawImage();
-    ctx.strokeStyle = document.getElementById("lineColor").value;
-    ctx.fillStyle = document.getElementById("lineColor").value;
-    ctx.beginPath();
-    triangles.forEach(function(triangle) {
-        ctx.moveTo(triangle.point1.x, triangle.point1.y);
-        ctx.lineTo(triangle.point2.x, triangle.point2.y);
-        ctx.lineTo(triangle.point3.x, triangle.point3.y);
-        ctx.stroke();
-    });
-    ctx.closePath();
+    triangles = triangulate(points);
+    drawTriangles(ctx, triangles);
     triangulationMade = true;
 }
 
 function updateLineColor() {
     if (triangulationMade) {
-        createDelaunayTriangulation();
+        drawEdges(ctx, triangles);
     } else {
         // update points to be the correct color
         clearCanvasAndRedrawImage();
