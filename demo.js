@@ -89,13 +89,13 @@ function createDelaunayTriangulation() {
 
     // create triangulation and draw it
     triangles = triangulate(points);
-    drawTriangles(ctx, triangles);
+    triangles = colorTriangles(ctx, triangles);
     triangulationMade = true;
 }
 
 function updateLineColor() {
     if (triangulationMade) {
-        drawEdges(ctx, triangles);
+        drawMainTriangulation(ctx, triangles);
     } else {
         // update points to be the correct color
         clearCanvasAndRedrawImage();

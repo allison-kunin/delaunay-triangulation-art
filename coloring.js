@@ -14,7 +14,7 @@ function drawEdges(context, triangles) {
     });
 }
 
-function drawTriangles(context, triangles) {
+function colorTriangles(context, triangles) {
     clearCanvasAndRedrawImage();
     
     triangles.forEach(function(triangle) {
@@ -28,10 +28,15 @@ function drawTriangles(context, triangles) {
         const height = maxy - miny;
         console.log("triangle: ", triangle);
         console.log(minx, maxy, width, height);
-        // context.willReadFrequently = true;
-        const imageData = context.getImageData(minx, maxy, width, height, {
-            willReadFrequently: true,
-        });
+        var imageData = null;
+        try {
+            imageData = context.getImageData(minx, maxy, width, height, {
+                willReadFrequently: true,
+            });
+        } catch (IndexSizeError) {
+            console.log("IndexSizeError: ", IndexSizeError.name, IndexSizeError.message);
+            return;
+        }
         console.log(imageData);
 
         count = 0;
@@ -70,25 +75,52 @@ function drawTriangles(context, triangles) {
             const avgGreen = Math.floor(sumGreen / count);
             const avgBlue = Math.floor(sumBlue / count);
             console.log(avgRed, avgGreen, avgBlue);
+            triangle.avgColor = [avgRed, avgGreen, avgBlue];
 
             // fill the triangle with the average color
-            context.fillStyle = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
-            context.strokeStyle = document.getElementById("lineColor").value;
-            context.beginPath();
-            context.moveTo(triangle.point1.x, triangle.point1.y);
-            context.lineTo(triangle.point2.x, triangle.point2.y);
-            context.lineTo(triangle.point3.x, triangle.point3.y);
-            context.lineTo(triangle.point1.x, triangle.point1.y);
-            context.fill();
-            context.closePath();
+            // context.fillStyle = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
+            // context.strokeStyle = document.getElementById("lineColor").value;
+            // context.beginPath();
+            // context.moveTo(triangle.point1.x, triangle.point1.y);
+            // context.lineTo(triangle.point2.x, triangle.point2.y);
+            // context.lineTo(triangle.point3.x, triangle.point3.y);
+            // context.lineTo(triangle.point1.x, triangle.point1.y);
+            // context.fill();
+            // context.closePath();
+            drawTriangle(context, triangle);
 
             // create list of image data for each triangle
             // and then go through each image data and draw it on a cleared canvas after the fact?
             // cover the entire canvas with the line color first to prevent aliasing or whatever
         }
     });
-    console.log("drawing edges...");
     // draw edges if they should be drawn
-    drawEdges(context, triangles)
-    
+    drawEdges(context, triangles);
+    // this function adds the avg color of the triangle to the object, so we must return the triangles
+    return triangles;
+}
+
+function drawTriangle(context, triangle) {
+    context.fillStyle = `rgb(${triangle.avgColor[0]}, ${triangle.avgColor[1]}, ${triangle.avgColor[2]})`;
+    context.strokeStyle = document.getElementById("lineColor").value;
+    context.beginPath();
+    context.moveTo(triangle.point1.x, triangle.point1.y);
+    context.lineTo(triangle.point2.x, triangle.point2.y);
+    context.lineTo(triangle.point3.x, triangle.point3.y);
+    context.lineTo(triangle.point1.x, triangle.point1.y);
+    context.fill();
+    context.closePath();
+}
+
+function drawMainTriangulation(context, triangles) {
+    // clear canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // draw triangles
+    triangles.forEach(function(triangle) {
+        drawTriangle(context, triangle);
+    });
+
+    // draw edges
+    drawEdges(context, triangles);
 }

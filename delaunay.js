@@ -21,6 +21,7 @@ var Triangle = function(p1, p2, p3) {
     this.point2 = p2;
     this.point3 = p3;
     this.circumcircle = calculateCircumcircle(this);
+    this.avgColor = [0, 0, 0];
 }
 
 var Circumcircle = function(center, radius) {
