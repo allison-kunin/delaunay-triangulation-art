@@ -26,8 +26,8 @@ function colorTriangles(context, triangles) {
         maxy = Math.max(triangle.point1.y, triangle.point2.y, triangle.point3.y);
         const width = maxx - minx;
         const height = maxy - miny;
-        console.log("triangle: ", triangle);
-        console.log(minx, maxy, width, height);
+        // console.log("triangle: ", triangle);
+        // console.log(minx, maxy, width, height);
         var imageData = null;
         try {
             imageData = context.getImageData(minx, maxy, width, height, {
@@ -37,7 +37,7 @@ function colorTriangles(context, triangles) {
             console.log("IndexSizeError: ", IndexSizeError.name, IndexSizeError.message);
             return;
         }
-        console.log(imageData);
+        // console.log(imageData);
 
         count = 0;
         sumRed = 0;
@@ -66,7 +66,7 @@ function colorTriangles(context, triangles) {
             }
         }
         
-        console.log(sumRed, sumGreen, sumBlue, count);
+        // console.log(sumRed, sumGreen, sumBlue, count);
 
         if (count != 0) {
 
@@ -74,24 +74,11 @@ function colorTriangles(context, triangles) {
             const avgRed = Math.floor(sumRed / count);
             const avgGreen = Math.floor(sumGreen / count);
             const avgBlue = Math.floor(sumBlue / count);
-            console.log(avgRed, avgGreen, avgBlue);
+            // console.log(avgRed, avgGreen, avgBlue);
             triangle.avgColor = [avgRed, avgGreen, avgBlue];
 
             // fill the triangle with the average color
-            // context.fillStyle = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
-            // context.strokeStyle = document.getElementById("lineColor").value;
-            // context.beginPath();
-            // context.moveTo(triangle.point1.x, triangle.point1.y);
-            // context.lineTo(triangle.point2.x, triangle.point2.y);
-            // context.lineTo(triangle.point3.x, triangle.point3.y);
-            // context.lineTo(triangle.point1.x, triangle.point1.y);
-            // context.fill();
-            // context.closePath();
             drawTriangle(context, triangle);
-
-            // create list of image data for each triangle
-            // and then go through each image data and draw it on a cleared canvas after the fact?
-            // cover the entire canvas with the line color first to prevent aliasing or whatever
         }
     });
     // draw edges if they should be drawn

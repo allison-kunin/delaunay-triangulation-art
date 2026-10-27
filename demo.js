@@ -85,7 +85,7 @@ function createDelaunayTriangulation() {
         points.add(new Point(canvas.width, Math.round(y)));
     }
 
-    console.log("points: ", points);
+    // console.log("points: ", points);
 
     // create triangulation and draw it
     triangles = triangulate(points);
