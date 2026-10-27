@@ -29,11 +29,11 @@
                     <input style="display: none" type="file" id="imageLoader" name="imageLoader" accept="image/*"/>
                 </div>
                 <canvas id="imageCanvas"></canvas>
-                <div class="rangeslider">
+                <div class="rangeSlider">
                     <input type="range" min="10" max="1000" 
                         value="500" class="myslider" 
-                        id="pointSlider">
-                    <p><span id="numPointsValue"></span></p>
+                        id="pointSlider" name="pointSlider">
+                    <label for="pointSlider" id="numPointsValue"></label>
                 </div>
                 
                 <script>
